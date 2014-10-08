@@ -1,0 +1,25 @@
+{
+  "name": "appium-android-bootstrap",
+  "version": "1.0.1",
+  "description": "Npm module for androidBootstrap, the java project which appium uses to interact with UiAutomator",
+  "main": "bin/AppiumBootstrap.jar",
+  "scripts": {
+    "prepublish": "ant build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/appium/appium-android-bootstrap.git"
+  },
+  "keywords": [
+    "appium",
+    "android",
+    "bootstrap",
+    "uiautomator"
+  ],
+  "author": "appium",
+  "license": "apache-2.0",
+  "bugs": {
+    "url": "https://github.com/appium/appium-android-bootstrap/issues"
+  },
+  "homepage": "https://github.com/appium/appium-android-bootstrap"
+}

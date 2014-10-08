@@ -1,0 +1,5 @@
+.idea
+target
+out
+bin/*
+!bin/AppiumBootstrap.jar
