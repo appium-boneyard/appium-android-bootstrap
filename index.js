@@ -1,4 +1,3 @@
-import {default as sample} from './lib/sample';
+import AndroidBootstrap from './lib/bootstrap';
 
-export {sample};
-
+export default AndroidBootstrap;

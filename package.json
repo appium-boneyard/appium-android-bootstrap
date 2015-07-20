@@ -23,8 +23,13 @@
     "lib": "lib"
   },
   "dependencies": {
+    "appium-adb": "^2.0.0-beta8",
+    "appium-logger": "^1.1.7",
+    "appium-uiautomator": "0.0.5-beta",
     "babel-runtime": "=5.5.5",
     "bluebird": "^2.9.32",
+    "lodash": "^3.10.0",
+    "net": "^1.0.2",
     "source-map-support": "^0.3.1"
   },
   "scripts": {
@@ -34,10 +39,12 @@
   },
   "devDependencies": {
     "appium-gulp-plugins": "^1.2.12",
+    "appium-test-support": "0.0.5",
     "chai": "^3.0.0",
     "chai-as-promised": "^5.1.0",
     "gulp": "^3.8.11",
     "mochawait": "^2.0.0",
+    "sinon": "^1.15.4",
     "yargs": "^3.10.0"
   }
 }
