@@ -6,6 +6,7 @@ import 'mochawait';
 import path from 'path';
 import AndroidBootstrap from '../../index';
 import ADB from 'appium-adb';
+import { errors } from 'mobile-json-wire-protocol';
 
 
 chai.should();
@@ -36,5 +37,9 @@ describe('Android Bootstrap', function () {
   it("sendCommand should work", async () => {
    (await androidBootstrap.sendCommand('action', {action: 'getDataDir'})).should
      .equal("/data");
+  });
+  it("sendCommand should correctly throw error", async () => {
+   await androidBootstrap.sendCommand('action', {action: 'unknown'}).should
+     .eventually.be.rejectedWith(errors.UnknownCommandError);
   });
 });

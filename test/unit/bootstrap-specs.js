@@ -10,6 +10,7 @@ import events from 'events';
 import UiAutomator from 'appium-uiautomator';
 import net from 'net';
 import { errors } from 'mobile-json-wire-protocol';
+import _ from 'lodash';
 
 chai.should();
 chai.use(chaiAsPromised);
@@ -17,13 +18,13 @@ chai.use(chaiAsPromised);
 describe('AndroidBootstrap', function () {
   const systemPort = 4724;
   let androidBootstrap = new AndroidBootstrap(systemPort),
-      adb= new ADB(),
+      adb = new ADB(),
       uiAutomator = new UiAutomator(adb);
 
   describe("start", withSandbox({mocks: {adb, uiAutomator, net, androidBootstrap}}, (S) => {
     it("should return a subProcess", async function () {
       let conn = new events.EventEmitter();
-      conn.start = () => { };
+      conn.start = _.noop;
       const appPackage = 'com.example.android.apis',
             disableAndroidWatchers = false;
       androidBootstrap.adb = adb;
@@ -44,16 +45,16 @@ describe('AndroidBootstrap', function () {
   describe("sendCommand", () => {
     it("should timeout", async function () {
       let conn = new events.EventEmitter();
-      conn.write = () => {};
-      conn.setEncoding = () => {};
+      conn.write = _.noop;
+      conn.setEncoding = _.noop;
       androidBootstrap.socketClient = conn;
       await androidBootstrap.sendCommand('action', {action: 'getDataDir'}, 1000)
         .should.eventually.be.rejectedWith("Bootstrap");
     });
     it("should successfully return after receiving data from bootstrap in parts", async function () {
       let conn = new events.EventEmitter();
-      conn.write = () => {};
-      conn.setEncoding = () => {};
+      conn.write = _.noop;
+      conn.setEncoding = _.noop;
       androidBootstrap.socketClient = conn;
       setTimeout(() => {
         conn.emit("data", '{"status":0, ');
@@ -64,8 +65,8 @@ describe('AndroidBootstrap', function () {
     });
     it("should successfully return after receiving data from bootstrap", async function () {
       let conn = new events.EventEmitter();
-      conn.write = () => {};
-      conn.setEncoding = () => {};
+      conn.write = _.noop;
+      conn.setEncoding = _.noop;
       androidBootstrap.socketClient = conn;
       setTimeout(() => {
         conn.emit("data", '{"status":0, "value": "hello"}');
@@ -75,8 +76,8 @@ describe('AndroidBootstrap', function () {
     });
     it("should throw correct error if status is not zero", async function () {
       let conn = new events.EventEmitter();
-      conn.write = () => {};
-      conn.setEncoding = () => {};
+      conn.write = _.noop;
+      conn.setEncoding = _.noop;
       androidBootstrap.socketClient = conn;
       setTimeout(() => {
         conn.emit("data", '{"status":7, "value": "not found"}');
