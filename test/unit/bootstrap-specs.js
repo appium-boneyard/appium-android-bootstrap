@@ -9,6 +9,7 @@ import { withSandbox } from 'appium-test-support';
 import events from 'events';
 import UiAutomator from 'appium-uiautomator';
 import net from 'net';
+import { errors } from 'mobile-json-wire-protocol';
 
 chai.should();
 chai.use(chaiAsPromised);
@@ -58,7 +59,8 @@ describe('AndroidBootstrap', function () {
         conn.emit("data", '{"status":0, ');
         conn.emit("data", '"value": "hello"}');
       }, 0);
-      await androidBootstrap.sendCommand('action', {action: 'getDataDir'}, 1000);
+      (await androidBootstrap.sendCommand('action', {action: 'getDataDir'}, 1000))
+        .should.equal("hello");
     });
     it("should successfully return after receiving data from bootstrap", async function () {
       let conn = new events.EventEmitter();
@@ -68,7 +70,19 @@ describe('AndroidBootstrap', function () {
       setTimeout(() => {
         conn.emit("data", '{"status":0, "value": "hello"}');
       }, 0);
-      await androidBootstrap.sendCommand('action', {action: 'getDataDir'}, 1000);
+      (await androidBootstrap.sendCommand('action', {action: 'getDataDir'}, 1000))
+        .should.equal("hello");
+    });
+    it("should throw correct error if status is not zero", async function () {
+      let conn = new events.EventEmitter();
+      conn.write = () => {};
+      conn.setEncoding = () => {};
+      androidBootstrap.socketClient = conn;
+      setTimeout(() => {
+        conn.emit("data", '{"status":7, "value": "not found"}');
+      }, 0);
+      await androidBootstrap.sendCommand('action', {action: 'getDataDir'}, 1000)
+        .should.eventually.be.rejectedWith(errors.NoSuchElementError);
     });
   });
   describe("sendAction", withSandbox({mocks: {androidBootstrap}}, (S) => {

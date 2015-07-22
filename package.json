@@ -29,6 +29,7 @@
     "babel-runtime": "=5.5.5",
     "bluebird": "^2.9.32",
     "lodash": "^3.10.0",
+    "mobile-json-wire-protocol": "^0.12.3",
     "net": "^1.0.2",
     "source-map-support": "^0.3.1"
   },

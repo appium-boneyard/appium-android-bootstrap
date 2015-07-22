@@ -4,7 +4,7 @@ import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import 'mochawait';
 import path from 'path';
-import AndroidBootstrap from '../../index.js';
+import AndroidBootstrap from '../../index';
 import ADB from 'appium-adb';
 
 
@@ -31,9 +31,10 @@ describe('Android Bootstrap', function () {
     await androidBootstrap.shutdown();
   });
   it("sendAction should work", async () => {
-    (await androidBootstrap.sendAction('wake')).should.have.property('status').equal(0);
+    (await androidBootstrap.sendAction('wake')).should.equal(true);
   });
   it("sendCommand should work", async () => {
-    await androidBootstrap.sendCommand('action', {action: 'getDataDir'});
+   (await androidBootstrap.sendCommand('action', {action: 'getDataDir'})).should
+     .equal("/data");
   });
 });
