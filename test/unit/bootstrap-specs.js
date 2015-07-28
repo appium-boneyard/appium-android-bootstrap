@@ -24,7 +24,6 @@ describe('AndroidBootstrap', function () {
   describe("start", withSandbox({mocks: {adb, uiAutomator, net, androidBootstrap}}, (S) => {
     it("should return a subProcess", async function () {
       let conn = new events.EventEmitter();
-      conn.start = _.noop;
       const appPackage = 'com.example.android.apis',
             disableAndroidWatchers = false;
       androidBootstrap.adb = adb;
@@ -38,6 +37,9 @@ describe('AndroidBootstrap', function () {
         .once()
         .returns(conn);
       S.mocks.net.expects('connect').once().returns(conn);
+      setTimeout(() => {
+        conn.emit("connect");
+      }, 1);
       await androidBootstrap.start(appPackage, disableAndroidWatchers);
       S.verify();
     });
@@ -59,7 +61,7 @@ describe('AndroidBootstrap', function () {
       setTimeout(() => {
         conn.emit("data", '{"status":0, ');
         conn.emit("data", '"value": "hello"}');
-      }, 0);
+      }, 1);
       (await androidBootstrap.sendCommand('action', {action: 'getDataDir'}, 1000))
         .should.equal("hello");
     });
