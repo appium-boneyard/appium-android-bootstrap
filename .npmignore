@@ -1,8 +1,7 @@
 .idea
+.iml
 out
-bin
 bootstrap/local.properties
-bootstrap/project.properties
 bootstrap/.classpath
 node_modules
 *.log
