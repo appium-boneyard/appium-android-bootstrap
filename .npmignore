@@ -1,7 +1,6 @@
 .idea
 out
 bin
-bootstrap/bin/*
 bootstrap/local.properties
 bootstrap/project.properties
 bootstrap/.classpath
