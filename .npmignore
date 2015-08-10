@@ -6,6 +6,5 @@ bootstrap/bin/*
 bootstrap/local.properties
 bootstrap/project.properties
 bootstrap/.classpath
-bootstrap/target/
 node_modules
 *.log
