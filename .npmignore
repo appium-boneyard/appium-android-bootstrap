@@ -1,5 +1,4 @@
 .idea
-target
 out
 bin
 bootstrap/bin/*
