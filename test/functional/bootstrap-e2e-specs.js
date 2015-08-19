@@ -42,4 +42,9 @@ describe('Android Bootstrap', function () {
    await androidBootstrap.sendCommand('action', {action: 'unknown'}).should
      .eventually.be.rejectedWith(errors.UnknownCommandError);
   });
+  it("should cancel onUnexpectedShutdown promise on unexpected uiAutomator shutdown", async () => {
+    await androidBootstrap.sendCommand('shutdown');
+    await androidBootstrap.onUnexpectedShutdown.should.eventually
+      .be.rejectedWith("Error: UiAUtomator shut down unexpectedly");
+  });
 });
