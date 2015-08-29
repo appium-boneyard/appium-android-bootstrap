@@ -23,7 +23,7 @@
     "lib": "lib"
   },
   "dependencies": {
-    "appium-adb": "^2.0.0-beta8",
+    "appium-adb": "2.0.0-beta13",
     "appium-logger": "^1.1.7",
     "appium-uiautomator": "0.0.5-beta",
     "babel-runtime": "=5.5.5",

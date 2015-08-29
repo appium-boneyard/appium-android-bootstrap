@@ -13,12 +13,13 @@ chai.should();
 chai.use(chaiAsPromised);
 
 describe('Android Bootstrap', function () {
+  this.timeout(60000);
   let adb, androidBootstrap;
   let rootDir = path.resolve(__dirname,
                              process.env.NO_PRECOMPILE ? '../..' : '../../..');
   const apiDemos = path.resolve(rootDir, 'test', 'fixtures', 'ApiDemos-debug.apk');
   const systemPort = 4724;
-  before(async () => {
+  before(async function () {
     adb = await ADB.createADB();
     const packageName = 'com.example.android.apis',
           activityName = '.ApiDemos';
