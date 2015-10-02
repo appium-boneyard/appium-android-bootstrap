@@ -1,6 +1,6 @@
 {
   "name": "appium-android-bootstrap",
-  "description": "Description goes here.",
+  "description": "Npm module for androidBootstrap, the java project which appium uses to interact with UiAutomator",
   "keywords": [
     "appium"
   ],
@@ -23,10 +23,10 @@
     "lib": "lib"
   },
   "dependencies": {
-    "appium-adb": "2.0.0-beta13",
+    "appium-adb": "beta",
     "appium-logger": "^1.1.7",
     "appium-uiautomator": "0.0.5-beta",
-    "babel-runtime": "=5.5.5",
+    "babel-runtime": "=5.8.24",
     "bluebird": "^2.9.34",
     "lodash": "^3.10.0",
     "mobile-json-wire-protocol": "^0.12.3",
