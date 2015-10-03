@@ -1,6 +1,6 @@
-language: java
+language: node_js
 node_js:
   - "0.12"
-script: cd bootstrap && ant clean
+script: npm run test
 after_success:
   - gulp coveralls
