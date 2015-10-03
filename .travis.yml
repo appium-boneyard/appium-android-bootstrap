@@ -1,5 +1,6 @@
 language: java
 node_js:
   - "0.12"
+script: npm install && npm test
 after_success:
   - gulp coveralls
