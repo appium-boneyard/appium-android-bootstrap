@@ -1,3 +1,19 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package io.appium.android.bootstrap;
 
 import io.appium.android.bootstrap.exceptions.CommandTypeException;
@@ -9,7 +25,7 @@ import java.util.Iterator;
 
 /**
  * This proxy embodies the command that the handlers execute.
- * 
+ *
  */
 public class AndroidCommand {
 
@@ -24,7 +40,7 @@ public class AndroidCommand {
 
   /**
    * Return the action string for this command.
-   * 
+   *
    * @return String
    * @throws JSONException
    */
@@ -42,7 +58,7 @@ public class AndroidCommand {
   /**
    * Get the {@link AndroidElement destEl} this command is to operate on (must
    * provide the "desElId" parameter).
-   * 
+   *
    * @return {@link AndroidElement}
    * @throws JSONException
    */
@@ -54,7 +70,7 @@ public class AndroidCommand {
   /**
    * Get the {@link AndroidElement element} this command is to operate on (must
    * provide the "elementId" parameter).
-   * 
+   *
    * @return {@link AndroidElement}
    * @throws JSONException
    */
@@ -66,7 +82,7 @@ public class AndroidCommand {
   /**
    * Returns whether or not this command is on an element (true) or device
    * (false).
-   * 
+   *
    * @return boolean
    */
   public boolean isElementCommand() {
@@ -83,7 +99,7 @@ public class AndroidCommand {
   /**
    * Return a hash table of name, value pairs as arguments to the handlers
    * executing this command.
-   * 
+   *
    * @return Hashtable<String, Object>
    * @throws JSONException
    */
@@ -101,7 +117,7 @@ public class AndroidCommand {
 
   /**
    * Set the command {@link AndroidCommandType type}
-   * 
+   *
    * @param stringType
    *          The string of the type (i.e. "shutdown" or "action")
    * @throws CommandTypeException

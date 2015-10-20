@@ -1,3 +1,19 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package io.appium.android.bootstrap.handler;
 
 import android.graphics.Rect;
@@ -13,7 +29,7 @@ import java.util.Hashtable;
 /**
  * This handler is and abstract class that contains all the common code for
  * touch event handlers.
- * 
+ *
  */
 public abstract class TouchEvent extends CommandHandler {
   protected AndroidElement            el;
@@ -27,7 +43,7 @@ public abstract class TouchEvent extends CommandHandler {
   protected boolean                   isElement;
 
   /**
-   * 
+   *
    * @param command
    *          The {@link AndroidCommand}
    * @return {@link AndroidCommandResult}
@@ -66,11 +82,11 @@ public abstract class TouchEvent extends CommandHandler {
       } else { // no element so extract x and y from params
         final Object paramX = params.get("x");
         final Object paramY = params.get("y");
-        
+
         // these will be defaulted to 0.5 when passed to getDeviceAbsPos
         double targetX = 0;
         double targetY = 0;
-        
+
         if (paramX != null) {
           targetX = Double.parseDouble(paramX.toString());
         }
@@ -78,10 +94,10 @@ public abstract class TouchEvent extends CommandHandler {
         if (paramY != null) {
           targetY = Double.parseDouble(paramY.toString());
         }
-        
+
         Point coords = new Point(targetX, targetY);
         coords = PositionHelper.getDeviceAbsPos(coords);
-       
+
         clickX = coords.x.intValue();
         clickY = coords.y.intValue();
       }
@@ -93,7 +109,7 @@ public abstract class TouchEvent extends CommandHandler {
     } catch (final UiObjectNotFoundException e) {
       return new AndroidCommandResult(WDStatus.NO_SUCH_ELEMENT, e.getMessage());
     } catch (final InvalidCoordinatesException e) {
-      return new AndroidCommandResult(WDStatus.INVALID_ELEMENT_COORDINATES, 
+      return new AndroidCommandResult(WDStatus.INVALID_ELEMENT_COORDINATES,
           e.getMessage());
     } catch (final Exception e) {
       return getErrorResult(e.getMessage());
