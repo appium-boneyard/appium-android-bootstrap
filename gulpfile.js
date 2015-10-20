@@ -17,5 +17,7 @@ gulp.task('ant', ['ant-clean', 'ant-build']);
 boilerplate({
   build: 'appium-android-bootstrap',
   jscs: false,
-  extraPrepublishTasks: ['ant']
+  extraPrepublishTasks: ['ant'],
+  e2eTest: {android: true},
+  testTimeout: 20000
 });

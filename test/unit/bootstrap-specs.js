@@ -2,8 +2,7 @@
 
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
-import 'mochawait';
-import AndroidBootstrap from '../../index';
+import AndroidBootstrap from '../..';
 import ADB from 'appium-adb';
 import { withSandbox } from 'appium-test-support';
 import events from 'events';
@@ -11,6 +10,7 @@ import UiAutomator from 'appium-uiautomator';
 import net from 'net';
 import { errors } from 'mobile-json-wire-protocol';
 import _ from 'lodash';
+
 
 chai.should();
 chai.use(chaiAsPromised);

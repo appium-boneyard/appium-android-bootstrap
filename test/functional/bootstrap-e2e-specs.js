@@ -2,9 +2,8 @@
 
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
-import 'mochawait';
 import path from 'path';
-import AndroidBootstrap from '../../index';
+import AndroidBootstrap from '../..';
 import ADB from 'appium-adb';
 import { errors } from 'mobile-json-wire-protocol';
 
