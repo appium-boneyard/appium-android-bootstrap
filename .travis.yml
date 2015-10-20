@@ -1,0 +1,18 @@
+language: android
+android:
+  components:
+    - build-tools-19.1.0
+    - android-19
+install:
+  # need to also set up Node environment
+  - rm -rf ~/.nvm
+  - git clone https://github.com/creationix/nvm.git ~/.nvm
+  - source ~/.nvm/nvm.sh
+  - nvm install 0.12
+  - node --version
+  - npm install
+  - npm install -g gulp
+script:
+  - gulp once
+after_success:
+  - gulp coveralls
