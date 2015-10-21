@@ -72,7 +72,7 @@ public abstract class TouchEvent extends CommandHandler {
         el = command.getElement();
 
         // check if element exists without wait
-        if(! el.exists()) {
+        if (!el.exists()) {
           throw new UiObjectNotFoundException("TouchEvent element does not exist.");
         }
 
