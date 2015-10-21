@@ -2,7 +2,7 @@
 
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
-import AndroidBootstrap from '../..';
+import { AndroidBootstrap, COMMAND_TYPES } from '../..';
 import ADB from 'appium-adb';
 import { withSandbox } from 'appium-test-support';
 import events from 'events';
@@ -50,7 +50,7 @@ describe('AndroidBootstrap', function () {
       conn.write = _.noop;
       conn.setEncoding = _.noop;
       androidBootstrap.socketClient = conn;
-      await androidBootstrap.sendCommand('action', {action: 'getDataDir'}, 1000)
+      await androidBootstrap.sendCommand(COMMAND_TYPES.ACTION, {action: 'getDataDir'}, 1000)
         .should.eventually.be.rejectedWith("Bootstrap");
     });
     it("should successfully return after receiving data from bootstrap in parts", async function () {
@@ -62,7 +62,7 @@ describe('AndroidBootstrap', function () {
         conn.emit("data", '{"status":0, ');
         conn.emit("data", '"value": "hello"}');
       }, 1);
-      (await androidBootstrap.sendCommand('action', {action: 'getDataDir'}, 1000))
+      (await androidBootstrap.sendCommand(COMMAND_TYPES.ACTION, {action: 'getDataDir'}, 1000))
         .should.equal("hello");
     });
     it("should successfully return after receiving data from bootstrap", async function () {
@@ -73,7 +73,7 @@ describe('AndroidBootstrap', function () {
       setTimeout(() => {
         conn.emit("data", '{"status":0, "value": "hello"}');
       }, 0);
-      (await androidBootstrap.sendCommand('action', {action: 'getDataDir'}, 1000))
+      (await androidBootstrap.sendCommand(COMMAND_TYPES.ACTION, {action: 'getDataDir'}, 1000))
         .should.equal("hello");
     });
     it("should throw correct error if status is not zero", async function () {
@@ -84,7 +84,7 @@ describe('AndroidBootstrap', function () {
       setTimeout(() => {
         conn.emit("data", '{"status":7, "value": "not found"}');
       }, 0);
-      await androidBootstrap.sendCommand('action', {action: 'getDataDir'}, 1000)
+      await androidBootstrap.sendCommand(COMMAND_TYPES.ACTION, {action: 'getDataDir'}, 1000)
         .should.eventually.be.rejectedWith(errors.NoSuchElementError);
     });
   });
