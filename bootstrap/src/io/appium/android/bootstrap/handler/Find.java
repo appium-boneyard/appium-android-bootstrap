@@ -1,3 +1,19 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package io.appium.android.bootstrap.handler;
 
 import com.android.uiautomator.core.UiObjectNotFoundException;
@@ -164,9 +180,9 @@ public class Find extends CommandHandler {
           Logger
               .debug("Failed to locate element. Clearing Accessibility cache and retrying.");
           // some control updates fail to trigger AccessibilityEvents, resulting
-          // in stale AccessibilityNodeInfo instances. In these cases, UIAutomator 
-          // will fail to locate visible elements. As a work-around, force clear 
-          // the AccessibilityInteractionClient's cache and search again. This 
+          // in stale AccessibilityNodeInfo instances. In these cases, UIAutomator
+          // will fail to locate visible elements. As a work-around, force clear
+          // the AccessibilityInteractionClient's cache and search again. This
           // technique also appears to make Appium's searches conclude more quickly.
           // See Appium issue #4200 https://github.com/appium/appium/issues/4200
           if (ReflectionUtils.clearAccessibilityCache()) {

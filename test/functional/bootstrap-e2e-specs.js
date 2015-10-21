@@ -3,7 +3,7 @@
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import path from 'path';
-import AndroidBootstrap from '../..';
+import { AndroidBootstrap, COMMAND_TYPES } from '../..';
 import ADB from 'appium-adb';
 import { errors } from 'mobile-json-wire-protocol';
 
@@ -35,15 +35,15 @@ describe('Android Bootstrap', function () {
     (await androidBootstrap.sendAction('wake')).should.equal(true);
   });
   it("sendCommand should work", async () => {
-   (await androidBootstrap.sendCommand('action', {action: 'getDataDir'})).should
+   (await androidBootstrap.sendCommand(COMMAND_TYPES.ACTION, {action: 'getDataDir'})).should
      .equal("/data");
   });
   it("sendCommand should correctly throw error", async () => {
-   await androidBootstrap.sendCommand('action', {action: 'unknown'}).should
+   await androidBootstrap.sendCommand(COMMAND_TYPES.ACTION, {action: 'unknown'}).should
      .eventually.be.rejectedWith(errors.UnknownCommandError);
   });
   it("should cancel onUnexpectedShutdown promise on unexpected uiAutomator shutdown", async () => {
-    await androidBootstrap.sendCommand('shutdown');
+    await androidBootstrap.sendCommand(COMMAND_TYPES.SHUTDOWN);
     await androidBootstrap.onUnexpectedShutdown.should.eventually
       .be.rejectedWith("Error: UiAUtomator shut down unexpectedly");
   });

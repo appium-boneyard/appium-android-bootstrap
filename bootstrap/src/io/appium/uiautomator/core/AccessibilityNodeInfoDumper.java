@@ -36,11 +36,11 @@ import java.util.regex.Pattern;
  * lot of bugs which will stay in old android versions forever. By coping the
  * code of the latest version it is ensured that all patches become available on
  * old android versions.
- * 
+ *
  * down ported bugs are e.g.
  * { @link https://code.google.com/p/android/issues/detail?id=62906 }
  * { @link https://code.google.com/p/android/issues/detail?id=58733 }
- * 
+ *
  */
 public class AccessibilityNodeInfoDumper {
     private static final String LOGTAG = AccessibilityNodeInfoDumper.class.getSimpleName();
@@ -75,17 +75,17 @@ public class AccessibilityNodeInfoDumper {
             if (root != null) {
                 int width = -1;
                 int height = -1;
-                if(API.API_18){
+                if (API.API_18){
                     // getDefaultDisplay method available since API level 18
                     Display display = UiAutomatorBridge.getInstance().getDefaultDisplay();
                     Point size = new android.graphics.Point();
                     display.getSize(size);
                     width = size.x;
                     height = size.y;
-      
+
                     serializer.attribute("", "rotation", Integer.toString(display.getRotation()));
               }
-            
+
               dumpNodeRec(root, serializer, 0, width, height);
           }
 
@@ -120,10 +120,10 @@ public class AccessibilityNodeInfoDumper {
         serializer.attribute("", "password", Boolean.toString(node.isPassword()));
         serializer.attribute("", "selected", Boolean.toString(node.isSelected()));
 
-        if(API.API_18){
+        if (API.API_18){
           serializer.attribute("", "bounds", AccessibilityNodeInfoHelper.getVisibleBoundsInScreen(
               node, width, height).toShortString());
-          
+
         	serializer.attribute("", "resource-id", safeCharSeqToString(node.getViewIdResourceName()));
         }
 
@@ -154,8 +154,8 @@ public class AccessibilityNodeInfoDumper {
      */
     private static boolean nafExcludedClass(AccessibilityNodeInfo node) {
         String className = safeCharSeqToString(node.getClassName());
-        for(String excludedClassName : NAF_EXCLUDED_CLASSES) {
-            if(className.endsWith(excludedClassName))
+        for (String excludedClassName : NAF_EXCLUDED_CLASSES) {
+            if (className.endsWith(excludedClassName))
                 return true;
         }
         return false;
