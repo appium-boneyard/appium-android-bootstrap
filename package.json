@@ -6,7 +6,7 @@
     "android",
     "bootstrap"
   ],
-  "version": "2.2.0",
+  "version": "2.2.1",
   "author": "appium",
   "license": "Apache-2.0",
   "repository": {
@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "appium-adb": "^2.0.1",
-    "appium-logger": "^1.1.7",
+    "appium-logger": "^2.0.0",
     "appium-uiautomator": "^1.0.0",
     "babel-runtime": "=5.8.24",
     "bluebird": "^2.10.2",
