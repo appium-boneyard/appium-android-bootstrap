@@ -187,6 +187,8 @@ public class AndroidElement {
       if (res.equals("")) {
         res = getText();
       }
+    } else if (attr.equals("contentDescription")) {
+      res = getContentDesc();
     } else if (attr.equals("text")) {
       res = getText();
     } else if (attr.equals("className")) {
