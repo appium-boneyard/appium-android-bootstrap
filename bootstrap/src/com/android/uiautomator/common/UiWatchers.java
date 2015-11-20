@@ -1,13 +1,13 @@
 // https://android.googlesource.com/platform/frameworks/testing/+/master/uiautomator_test_libraries/src/com/android/uiautomator/common/UiWatchers.java
 /*
  * Copyright (C) 2013 The Android Open Source Project
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -120,6 +120,27 @@ public class UiWatchers {
     });
 
     Log.i(LOG_TAG, "Registed GUI Exception watchers");
+  }
+
+  public void registerAcceptSSLCertWatcher() {
+    UiDevice.getInstance().registerWatcher("SSLCERTERROR", new UiWatcher() {
+      @Override
+      public boolean checkForCondition() {
+        UiObject continueButton = new UiObject(new UiSelector()
+          .className("android.widget.Button").packageName("com.android.browser").text("Continue"));
+        if (continueButton.exists()) {
+          try {
+            continueButton.click();
+            return true; // triggered
+          } catch (UiObjectNotFoundException e) {
+            Log.e(LOG_TAG, "Exception", e);
+          }
+        }
+        return false; // no trigger
+      }
+    });
+
+    Log.i(LOG_TAG, "Registered SSL Certificate Error Watchers");
   }
 
   public void onAnrDetected(String errorText) {
