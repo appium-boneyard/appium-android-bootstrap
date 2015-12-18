@@ -45,14 +45,6 @@ describe('AndroidBootstrap', function () {
     });
   }));
   describe("sendCommand", () => {
-    it("should timeout", async function () {
-      let conn = new events.EventEmitter();
-      conn.write = _.noop;
-      conn.setEncoding = _.noop;
-      androidBootstrap.socketClient = conn;
-      await androidBootstrap.sendCommand(COMMAND_TYPES.ACTION, {action: 'getDataDir'}, 1000)
-        .should.eventually.be.rejectedWith("Bootstrap");
-    });
     it("should successfully return after receiving data from bootstrap in parts", async function () {
       let conn = new events.EventEmitter();
       conn.write = _.noop;
