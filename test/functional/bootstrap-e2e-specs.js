@@ -25,7 +25,7 @@ describe('Android Bootstrap', function () {
     await adb.install(apiDemos);
     await adb.startApp({pkg: packageName,
                         activity: activityName});
-    androidBootstrap = new AndroidBootstrap(systemPort);
+    androidBootstrap = new AndroidBootstrap(adb, systemPort);
     await androidBootstrap.start('com.example.android.apis', false);
   });
   after(async ()=> {

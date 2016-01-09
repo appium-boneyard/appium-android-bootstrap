@@ -15,18 +15,17 @@ import _ from 'lodash';
 chai.should();
 chai.use(chaiAsPromised);
 
-describe('AndroidBootstrap', function () {
+describe('AndroidBootstrap', async function () {
   const systemPort = 4724;
-  let androidBootstrap = new AndroidBootstrap(systemPort),
-      adb = new ADB(),
-      uiAutomator = new UiAutomator(adb);
+  let adb = new ADB();
+  let androidBootstrap = new AndroidBootstrap(adb, systemPort);
+  let uiAutomator = new UiAutomator(adb);
 
   describe("start", withSandbox({mocks: {adb, uiAutomator, net, androidBootstrap}}, (S) => {
     it("should return a subProcess", async function () {
       let conn = new events.EventEmitter();
       const appPackage = 'com.example.android.apis',
             disableAndroidWatchers = false;
-      androidBootstrap.adb = adb;
       androidBootstrap.uiAutomator = uiAutomator;
       S.mocks.androidBootstrap.expects('init').once()
         .returns('');
