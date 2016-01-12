@@ -20,7 +20,7 @@ The commands are sent through the JavaScript interface.
 
 ### Usage
 
-The module provides an `AndroidBootstrap` class, which is instantiated with a system port (defaults to `4724`) and an optional web socket. The object then has four `async` methods:
+The module provides an `AndroidBootstrap` class, which is instantiated with an instance of [appium-adb](https://github.com/appium/appium-adb), a system port (defaults to `4724`) and an optional web socket. The object then has four `async` methods:
 
 `async start (appPackage, disableAndroidWatchers)`
 
