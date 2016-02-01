@@ -18,15 +18,15 @@ describe('Android Bootstrap', function () {
                              process.env.NO_PRECOMPILE ? '../..' : '../../..');
   const apiDemos = path.resolve(rootDir, 'test', 'fixtures', 'ApiDemos-debug.apk');
   const systemPort = 4724;
-  before(async function () {
+  before(async () => {
     adb = await ADB.createADB();
-    const packageName = 'com.example.android.apis',
+    const packageName = 'io.appium.android.apis',
           activityName = '.ApiDemos';
     await adb.install(apiDemos);
     await adb.startApp({pkg: packageName,
                         activity: activityName});
     androidBootstrap = new AndroidBootstrap(adb, systemPort);
-    await androidBootstrap.start('com.example.android.apis', false);
+    await androidBootstrap.start('io.appium.android.apis', false);
   });
   after(async ()=> {
     await androidBootstrap.shutdown();
