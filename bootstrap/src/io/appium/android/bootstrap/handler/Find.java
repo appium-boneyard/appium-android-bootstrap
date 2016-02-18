@@ -145,7 +145,7 @@ public class Find extends CommandHandler {
     boolean found = false;
     try {
       Object result = null;
-      final List<UiSelector> selectors = getSelectors(strategy, text, multiple);
+      final List<UiSelector> selectors = getSelectors(strategy, text, multiple, contextId);
       if (!multiple) {
         for (int i = 0; i < selectors.size() && !found; i++) {
           try {
@@ -262,7 +262,7 @@ public class Find extends CommandHandler {
    * @throws ElementNotFoundException
    */
   private List<UiSelector> getSelectors(final Strategy strategy,
-      final String text, final boolean many) throws InvalidStrategyException,
+      final String text, final boolean many, final String contextId) throws InvalidStrategyException,
       ElementNotFoundException, UiSelectorSyntaxException,
       ParserConfigurationException, InvalidSelectorException {
     final List<UiSelector> selectors = new ArrayList<UiSelector>();
@@ -270,7 +270,7 @@ public class Find extends CommandHandler {
 
     switch (strategy) {
       case XPATH:
-        for (final UiSelector selector : getXPathSelectors(text, many)) {
+        for (final UiSelector selector : getXPathSelectors(text, many, contextId)) {
           selectors.add(selector);
         }
         break;
@@ -382,12 +382,16 @@ public class Find extends CommandHandler {
 
   /** returns List of UiSelectors for an xpath expression **/
   private List<UiSelector> getXPathSelectors(final String expression,
-      final boolean multiple) throws ElementNotFoundException,
-      ParserConfigurationException, InvalidSelectorException {
+                                             final boolean multiple,
+                                             String contextId)
+          throws ElementNotFoundException, ParserConfigurationException, InvalidSelectorException {
+    
     final List<UiSelector> selectors = new ArrayList<UiSelector>();
 
-    final ArrayList<ClassInstancePair> pairs = XMLHierarchy
-        .getClassInstancePairs(expression);
+    final ArrayList<ClassInstancePair> pairs =
+            contextId.equals("") ?
+                    XMLHierarchy.getClassInstancePairs(expression) :
+                    XMLHierarchy.getClassInstancePairs(expression, contextId);
 
     if (!multiple) {
       if (pairs.size() == 0) {
