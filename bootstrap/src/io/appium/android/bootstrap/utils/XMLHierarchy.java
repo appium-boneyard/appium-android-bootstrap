@@ -51,19 +51,8 @@ public abstract class XMLHierarchy {
 
   public static ArrayList<ClassInstancePair> getClassInstancePairs(String xpathExpression)
           throws ElementNotFoundException, InvalidSelectorException, ParserConfigurationException {
-    XPath xpath = XPathFactory.newInstance().newXPath();
-    XPathExpression exp = null;
-    try {
-      exp = xpath.compile(xpathExpression);
-    } catch (XPathExpressionException e) {
-      throw new InvalidSelectorException(e.getMessage());
-    }
 
-    Node formattedXmlRoot;
-
-    formattedXmlRoot = getFormattedXMLDoc();
-
-    return getClassInstancePairs(exp, formattedXmlRoot);
+    return getClassInstancePairs(compileXpath(xpathExpression), getFormattedXMLDoc());
   }
 
   public static ArrayList<ClassInstancePair> getClassInstancePairs(final String xpathExpression, final String contextId)
@@ -71,6 +60,10 @@ public abstract class XMLHierarchy {
     AndroidElement contextElement = AndroidElementsHash.getInstance().getElement(contextId);
     AccessibilityNodeInfo contextNode = AccessibilityNodeInfoGetter.fromUiObject(contextElement.getUiObject());
 
+    return getClassInstancePairs(compileXpath(xpathExpression), getFormattedXMLDoc(contextNode));
+  }
+
+  private static XPathExpression compileXpath(String xpathExpression) throws InvalidSelectorException {
     XPath xpath = XPathFactory.newInstance().newXPath();
     XPathExpression exp = null;
     try {
@@ -78,12 +71,7 @@ public abstract class XMLHierarchy {
     } catch (XPathExpressionException e) {
       throw new InvalidSelectorException(e.getMessage());
     }
-
-    Node formattedXmlRoot;
-
-    formattedXmlRoot = getFormattedXMLDoc(contextNode);
-
-    return getClassInstancePairs(exp, formattedXmlRoot);
+    return exp;
   }
 
   public static ArrayList<ClassInstancePair> getClassInstancePairs(XPathExpression xpathExpression, Node root) throws ElementNotFoundException {
