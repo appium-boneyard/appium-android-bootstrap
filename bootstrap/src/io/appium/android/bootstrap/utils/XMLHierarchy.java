@@ -16,14 +16,16 @@
 
 package io.appium.android.bootstrap.utils;
 
-import android.graphics.Point;
 import android.os.Environment;
-import android.view.Display;
 import android.view.accessibility.AccessibilityNodeInfo;
+
+import io.appium.android.bootstrap.AndroidElement;
+import io.appium.android.bootstrap.AndroidElementsHash;
 import io.appium.android.bootstrap.exceptions.ElementNotFoundException;
 import io.appium.android.bootstrap.exceptions.InvalidSelectorException;
 import io.appium.android.bootstrap.exceptions.PairCreationException;
 import io.appium.uiautomator.core.AccessibilityNodeInfoDumper;
+import io.appium.uiautomator.core.AccessibilityNodeInfoGetter;
 import io.appium.uiautomator.core.UiAutomatorBridge;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -49,6 +51,19 @@ public abstract class XMLHierarchy {
 
   public static ArrayList<ClassInstancePair> getClassInstancePairs(String xpathExpression)
           throws ElementNotFoundException, InvalidSelectorException, ParserConfigurationException {
+
+    return getClassInstancePairs(compileXpath(xpathExpression), getFormattedXMLDoc());
+  }
+
+  public static ArrayList<ClassInstancePair> getClassInstancePairs(final String xpathExpression, final String contextId)
+          throws InvalidSelectorException, ElementNotFoundException {
+    AndroidElement contextElement = AndroidElementsHash.getInstance().getElement(contextId);
+    AccessibilityNodeInfo contextNode = AccessibilityNodeInfoGetter.fromUiObject(contextElement.getUiObject());
+
+    return getClassInstancePairs(compileXpath(xpathExpression), getFormattedXMLDoc(contextNode));
+  }
+
+  private static XPathExpression compileXpath(String xpathExpression) throws InvalidSelectorException {
     XPath xpath = XPathFactory.newInstance().newXPath();
     XPathExpression exp = null;
     try {
@@ -56,12 +71,7 @@ public abstract class XMLHierarchy {
     } catch (XPathExpressionException e) {
       throw new InvalidSelectorException(e.getMessage());
     }
-
-    Node formattedXmlRoot;
-
-    formattedXmlRoot = getFormattedXMLDoc();
-
-    return getClassInstancePairs(exp, formattedXmlRoot);
+    return exp;
   }
 
   public static ArrayList<ClassInstancePair> getClassInstancePairs(XPathExpression xpathExpression, Node root) throws ElementNotFoundException {
@@ -87,7 +97,11 @@ public abstract class XMLHierarchy {
   }
 
   public static InputSource getRawXMLHierarchy() {
-    AccessibilityNodeInfo root = getRootAccessibilityNode();
+    AccessibilityNodeInfo root = getRootAccessibilityNode();    
+    return getRawXMLHierarchy(root);
+  }
+
+  public static InputSource getRawXMLHierarchy(AccessibilityNodeInfo root) {
     return serializeAccessibilityNode(root);
   }
 
@@ -119,6 +133,10 @@ public abstract class XMLHierarchy {
 
   public static Node getFormattedXMLDoc() {
     return formatXMLInput(getRawXMLHierarchy());
+  }
+
+  public static Node getFormattedXMLDoc(AccessibilityNodeInfo root) {
+    return formatXMLInput(getRawXMLHierarchy(root));
   }
 
   public static Node formatXMLInput(InputSource input) {
