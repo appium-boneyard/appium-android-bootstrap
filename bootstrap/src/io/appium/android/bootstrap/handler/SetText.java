@@ -45,16 +45,15 @@ public class SetText extends CommandHandler {
   @Override
   public AndroidCommandResult execute(final AndroidCommand command)
       throws JSONException {
-
     AndroidElement el = null;
     if (command.isElementCommand()) {
-      Logger.debug("Using element passed in.");
       el = command.getElement();
+      Logger.debug("Using element passed in: " + el.getId());
     } else {
       try {
-        Logger.debug("Using currently-focused element.");
         AndroidElementsHash  elements = AndroidElementsHash.getInstance();
         el = elements.getElement(new UiSelector().focused(true), "");
+        Logger.debug("Using currently-focused element: " + el.getId());
       } catch (ElementNotFoundException e) {
         Logger.debug("Error retrieving focused element: " + e);
         return getErrorResult("Unable to set text without a focused element.");
