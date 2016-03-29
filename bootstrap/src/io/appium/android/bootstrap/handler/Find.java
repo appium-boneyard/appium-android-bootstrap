@@ -140,8 +140,8 @@ public class Find extends CommandHandler {
     final String text = (String) params.get("selector");
     final boolean multiple = (Boolean) params.get("multiple");
 
-    Logger.debug("Finding " + text + " using " + strategy.toString()
-        + " with the contextId: " + contextId + " multiple: " + multiple);
+    Logger.debug("Finding '" + text + "' using '" + strategy.toString()
+        + "' with the contextId: '" + contextId + "' multiple: " + multiple);
     boolean found = false;
     try {
       Object result = null;
@@ -385,7 +385,7 @@ public class Find extends CommandHandler {
                                              final boolean multiple,
                                              String contextId)
           throws ElementNotFoundException, ParserConfigurationException, InvalidSelectorException {
-    
+
     final List<UiSelector> selectors = new ArrayList<UiSelector>();
 
     final ArrayList<ClassInstancePair> pairs =
