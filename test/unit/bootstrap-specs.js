@@ -8,7 +8,7 @@ import { withSandbox } from 'appium-test-support';
 import events from 'events';
 import UiAutomator from 'appium-uiautomator';
 import net from 'net';
-import { errors } from 'mobile-json-wire-protocol';
+import { errors } from 'appium-base-driver';
 import _ from 'lodash';
 
 

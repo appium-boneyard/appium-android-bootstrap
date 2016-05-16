@@ -5,7 +5,7 @@ import chaiAsPromised from 'chai-as-promised';
 import path from 'path';
 import { AndroidBootstrap, COMMAND_TYPES } from '../..';
 import ADB from 'appium-adb';
-import { errors } from 'mobile-json-wire-protocol';
+import { errors } from 'appium-base-driver';
 
 
 chai.should();
