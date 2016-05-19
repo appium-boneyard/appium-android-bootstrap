@@ -32,8 +32,17 @@ public class UnicodeEncoder {
     if (ret.charAt(ret.length()-1) != text.charAt(text.length()-1) && !ret.endsWith("-")) {
       // in some cases there is a problem and the closing tag is not added
       // to the encoded text (for instance, with `ü`)
-      Logger.debug("Closing tag missing. Adding.");
-      ret = ret + "-";
+      //
+      // but first, sometimes it is just that the original string is too long
+      // and things get confused
+      if (text.length() >= 2) {
+        Logger.debug("Encoding error. Splitting text and trying again.");
+        int middle = text.length() / 2;
+        ret = encode(text.substring(0, middle)) + encode(text.substring(middle));
+      } else {
+        Logger.debug("Closing tag missing. Adding.");
+        ret = ret + "-";
+      }
     }
     return ret;
   }
