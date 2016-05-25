@@ -132,23 +132,23 @@ class SocketServer {
       Logger.debug("Skipped registering crash watchers.");
     } else {
       dismissCrashAlerts();
+
+      final TimerTask updateWatchers = new TimerTask() {
+        @Override
+        public void run() {
+          try {
+            watchers.check();
+          } catch (final Exception e) {
+          }
+        }
+      };
+      timer.scheduleAtFixedRate(updateWatchers, 100, 100);
     }
 
     if (acceptSSLCerts) {
       Logger.debug("Accepting SSL certificate errors.");
       acceptSSLCertificates();
     }
-
-    final TimerTask updateWatchers = new TimerTask() {
-      @Override
-      public void run() {
-        try {
-          watchers.check();
-        } catch (final Exception e) {
-        }
-      }
-    };
-    timer.scheduleAtFixedRate(updateWatchers, 100, 100);
 
     try {
       client = server.accept();
