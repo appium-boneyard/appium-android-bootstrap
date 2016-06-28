@@ -84,6 +84,7 @@ public class SetText extends CommandHandler {
       if (!replace) {
         text = currText + text;
       }
+      Configurator.getInstance().setKeyInjectionDelay(100);
       final boolean result = el.setText(text, unicodeKeyboard);
       if (!result) {
         return getErrorResult("el.setText() failed!");
