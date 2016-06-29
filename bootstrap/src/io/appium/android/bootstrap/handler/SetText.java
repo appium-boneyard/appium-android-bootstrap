@@ -16,7 +16,7 @@
 
 package io.appium.android.bootstrap.handler;
 
-import com.android.uiautomator.core.Configurator
+import com.android.uiautomator.core.Configurator;
 import com.android.uiautomator.core.UiDevice;
 import com.android.uiautomator.core.UiObjectNotFoundException;
 import com.android.uiautomator.core.UiSelector;
