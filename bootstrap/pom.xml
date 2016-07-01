@@ -31,8 +31,9 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
             <plugin>
@@ -51,13 +52,13 @@
         <dependency>
           <groupId>android</groupId>
           <artifactId>android</artifactId>
-          <version>4.4.2_r3</version>
+          <version>4.4.2_r4</version>
         </dependency>
 
         <dependency>
           <groupId>android.test.uiautomator</groupId>
           <artifactId>uiautomator</artifactId>
-          <version>4.4.2_r3</version>
+          <version>4.4.2_r4</version>
         </dependency>
 
         <dependency>

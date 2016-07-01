@@ -63,6 +63,7 @@ class AndroidCommandExecutor {
     map.put("openNotification", new OpenNotification());
     map.put("source", new Source());
     map.put("compressedLayoutHierarchy", new CompressedLayoutHierarchy());
+    map.put("configurator", new ConfiguratorHandler());
   }
 
   /**
