@@ -102,6 +102,8 @@
          in order to avoid having your file be overridden by tools such as "android update project"
     -->
     <!-- version-tag: VERSION_TAG -->
+    <property name="java.target" value="1.7" />
+    <property name="java.source" value="1.7" />
     <import file="${sdk.dir}/tools/ant/uibuild.xml" />
 
 </project>
