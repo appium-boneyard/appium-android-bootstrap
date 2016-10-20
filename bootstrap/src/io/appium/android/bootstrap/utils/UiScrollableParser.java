@@ -334,6 +334,10 @@ public class UiScrollableParser {
     if (type == int.class) {
       return Integer.parseInt(argument);
     }
+    
+    if (type == double.class) {
+      return Double.parseDouble(argument);
+    }
 
     if (type.toString().equals("java.lang.Class<T>")) {
       try {
