@@ -317,6 +317,13 @@ public class Find extends CommandHandler {
               sel = sel.instance(0);
             }
             selectors.add(sel);
+
+            // webview element ids do not have a package prefix
+            sel = sel.resourceId(text);
+            if (!many) {
+              sel = sel.instance(0);
+            }
+            selectors.add(sel);
           }
         }
 
