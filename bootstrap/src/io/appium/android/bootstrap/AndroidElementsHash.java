@@ -99,9 +99,16 @@ public class AndroidElementsHash {
     } else {
       try {
         el = baseEl.getChild(sel);
-        // there are times when UiAutomator returns an element from another parent
-        // so we need to see if it is within the bounds of the parent
-        if (!Rect.intersects(baseEl.getBounds(), el.getBounds())) {
+      } catch (final UiObjectNotFoundException e) {
+        throw new ElementNotFoundException();
+      }
+    }
+
+    if (el.exists()) {
+      // there are times when UiAutomator returns an element from another parent
+      // so we need to see if it is within the bounds of the parent
+      try {
+        if (baseEl != null && !Rect.intersects(baseEl.getBounds(), el.getBounds())) {
             Logger.debug("UiAutomator returned a child element but it is " +
                          "outside the bounds of the parent. Assuming no " +
                          "child element found");
@@ -110,9 +117,6 @@ public class AndroidElementsHash {
       } catch (final UiObjectNotFoundException e) {
         throw new ElementNotFoundException();
       }
-    }
-
-    if (el.exists()) {
       return addElement(el);
     } else {
       throw new ElementNotFoundException();
