@@ -1,14 +1,17 @@
 language: android
+jdk: oraclejdk8
 android:
   components:
-    - build-tools-19.1.0
-    - android-19
+    - platform-tools
+    - tools
+    - build-tools-25.0.1
+    - android-25
+node_js:
+  - "7"
+  - "6"
+  - "4"
 install:
   # need to also set up Node environment
-  - rm -rf ~/.nvm
-  - git clone https://github.com/creationix/nvm.git ~/.nvm
-  - source ~/.nvm/nvm.sh
-  - nvm install 6
   - node --version
   - npm install
   - npm install -g gulp
