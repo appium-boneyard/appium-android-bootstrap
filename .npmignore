@@ -5,3 +5,4 @@ bootstrap/local.properties
 bootstrap/.classpath
 node_modules
 *.log
+test
