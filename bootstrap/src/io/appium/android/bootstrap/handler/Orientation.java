@@ -98,15 +98,21 @@ public class Orientation extends CommandHandler {
    * @throws RemoteException
    * @throws InterruptedException
    */
-  private AndroidCommandResult handleRotation(final String orientation)
-      throws RemoteException, InterruptedException {
+  private AndroidCommandResult handleRotation(String orientation)
+          throws RemoteException, InterruptedException {
     final UiDevice d = UiDevice.getInstance();
+
     OrientationEnum desired;
     OrientationEnum current = OrientationEnum.fromInteger(d
-        .getDisplayRotation());
+            .getDisplayRotation());
 
     Logger.debug("Desired orientation: " + orientation);
     Logger.debug("Current rotation: " + current);
+
+    if (isWideScreenDevice(d)) {
+      Logger.debug("Device's natural display recognized as landscape");
+      orientation = orientation.equalsIgnoreCase("LANDSCAPE") ? "PORTRAIT" : "LANDSCAPE";
+    }
 
     if (orientation.equalsIgnoreCase("LANDSCAPE")) {
       switch (current) {
@@ -147,5 +153,17 @@ public class Orientation extends CommandHandler {
       return getErrorResult("Set the orientation, but app refused to rotate.");
     }
     return getSuccessResult("Rotation (" + orientation + ") successful.");
+  }
+
+  /*
+   * this method will determine if the device natural display is landscape.
+   */
+  private static boolean isWideScreenDevice(UiDevice uiDevice){
+    OrientationEnum rotation = OrientationEnum.fromInteger(uiDevice.getDisplayRotation());
+    int width = uiDevice.getDisplayWidth();
+    int height = uiDevice.getDisplayHeight();
+    // if the device's natural orientation is portrait, false will be returned. Otherwise, true will be returned.
+    return (!((rotation == OrientationEnum.ROTATION_0 || rotation == OrientationEnum.ROTATION_180) && height > width ||
+            (rotation == OrientationEnum.ROTATION_90 || rotation == OrientationEnum.ROTATION_270) && width > height));
   }
 }
