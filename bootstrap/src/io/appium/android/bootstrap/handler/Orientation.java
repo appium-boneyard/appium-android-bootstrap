@@ -48,8 +48,12 @@ public class Orientation extends CommandHandler {
       // Set the rotation
 
       final String orientation = (String) params.get("orientation");
+      boolean isNaturalOrientation = false;
+      if (params.containsKey("naturalOrientation")) {
+        isNaturalOrientation = Boolean.valueOf(String.valueOf(params.get("naturalOrientation")));
+      }
       try {
-        return handleRotation(orientation);
+        return handleRotation(orientation, isNaturalOrientation);
       } catch (final Exception e) {
         return getErrorResult("Unable to rotate screen: " + e.getMessage());
       }
@@ -98,7 +102,7 @@ public class Orientation extends CommandHandler {
    * @throws RemoteException
    * @throws InterruptedException
    */
-  private AndroidCommandResult handleRotation(final String orientation)
+  private AndroidCommandResult handleRotation(String orientation, boolean isNaturalOrientation)
       throws RemoteException, InterruptedException {
     final UiDevice d = UiDevice.getInstance();
     OrientationEnum desired;
@@ -107,7 +111,12 @@ public class Orientation extends CommandHandler {
 
     Logger.debug("Desired orientation: " + orientation);
     Logger.debug("Current rotation: " + current);
-
+    
+    if (isNaturalOrientation && isWideScreenDevice(d)) {
+      Logger.debug("Device's natural display recognized as landscape");
+      orientation = orientation.equalsIgnoreCase("LANDSCAPE") ? "PORTRAIT" : "LANDSCAPE";
+    }
+    
     if (orientation.equalsIgnoreCase("LANDSCAPE")) {
       switch (current) {
         case ROTATION_0:
@@ -147,5 +156,16 @@ public class Orientation extends CommandHandler {
       return getErrorResult("Set the orientation, but app refused to rotate.");
     }
     return getSuccessResult("Rotation (" + orientation + ") successful.");
+  }
+  /**
+  * this method will determine if the device natural display is landscape.
+  */
+  private static boolean isWideScreenDevice(UiDevice uiDevice){
+    OrientationEnum rotation = OrientationEnum.fromInteger(uiDevice.getDisplayRotation());
+    int width = uiDevice.getDisplayWidth();
+    int height = uiDevice.getDisplayHeight();
+    // if the device's natural orientation is portrait, false will be returned. Otherwise, true will be returned.
+    return (!((rotation == OrientationEnum.ROTATION_0 || rotation == OrientationEnum.ROTATION_180) && height > width ||
+            (rotation == OrientationEnum.ROTATION_90 || rotation == OrientationEnum.ROTATION_270) && width > height));
   }
 }
