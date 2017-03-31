@@ -44,14 +44,14 @@ public class Orientation extends CommandHandler {
       throws JSONException {
 
     final Hashtable<String, Object> params = command.params();
+    final String orientation = (String) params.get("orientation");
+    boolean isNaturalOrientation = false;
+    if (params.containsKey("naturalOrientation")) {
+      isNaturalOrientation = Boolean.valueOf(String.valueOf(params.get("naturalOrientation")));
+    }
     if (params.containsKey("orientation")) {
       // Set the rotation
 
-      final String orientation = (String) params.get("orientation");
-      boolean isNaturalOrientation = false;
-      if (params.containsKey("naturalOrientation")) {
-        isNaturalOrientation = Boolean.valueOf(String.valueOf(params.get("naturalOrientation")));
-      }
       try {
         return handleRotation(orientation, isNaturalOrientation);
       } catch (final Exception e) {
@@ -59,7 +59,7 @@ public class Orientation extends CommandHandler {
       }
     } else {
       // Get the rotation
-      return getRotation();
+      return getRotation(isNaturalOrientation);
     }
 
   }
@@ -69,20 +69,24 @@ public class Orientation extends CommandHandler {
    *
    * @return {@link AndroidCommandResult}
    */
-  private AndroidCommandResult getRotation() {
+  private AndroidCommandResult getRotation(boolean isNaturalOrientation) {
     String res = null;
     final UiDevice d = UiDevice.getInstance();
     final OrientationEnum currentRotation = OrientationEnum.fromInteger(d
         .getDisplayRotation());
     Logger.debug("Current rotation: " + currentRotation);
+    boolean naturalOrientationRequired = isNaturalOrientation && isWideScreenDevice(d);
+    if (naturalOrientationRequired) {
+      Logger.debug("Device's natural display recognized as landscape");
+    }
     switch (currentRotation) {
       case ROTATION_0:
       case ROTATION_180:
-        res = "PORTRAIT";
+        res = naturalOrientationRequired ? "LANDSCAPE" : "PORTRAIT";
         break;
       case ROTATION_90:
       case ROTATION_270:
-        res = "LANDSCAPE";
+        res = naturalOrientationRequired ? "PORTRAIT" : "LANDSCAPE";
         break;
     }
 
