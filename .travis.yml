@@ -1,9 +1,31 @@
 language: android
 android:
   components:
-    - build-tools-19.1.0
-    - android-19
+    # use the latest revision of Android SDK Tools
+    - tools
+    - platform-tools
+    - tools
+
+    - build-tools-25.0.1
+    - android-21
+
+    # Additional components
+    - extra-android-support
+    - extra-google-google_play_services
+    - extra-google-m2repository
+    - extra-android-m2repository
+    - addon-google_apis-google-21
+
+    # Specify at least one system image,
+    # if you need to run emulator(s) during your tests
+    - sys-img-armeabi-v7a-android-21
+jdk:
+  - oraclejdk8
+env:
+  - _FORCE_LOGS=1 TEST=unit
+  - _FORCE_LOGS=1 TEST=functional
 install:
+  - java -version
   # need to also set up Node environment
   - rm -rf ~/.nvm
   - git clone https://github.com/creationix/nvm.git ~/.nvm
@@ -12,7 +34,13 @@ install:
   - node --version
   - npm install
   - npm install -g gulp
+  - npm install -g mocha
+
+  - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+  - emulator -avd test -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
 script:
-  - gulp once
+  - DEVICE=android mocha -t 900000 -R spec build/test/$TEST
 after_success:
   - gulp coveralls
