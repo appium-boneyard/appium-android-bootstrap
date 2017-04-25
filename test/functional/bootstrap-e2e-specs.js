@@ -11,8 +11,11 @@ import { errors } from 'appium-base-driver';
 chai.should();
 chai.use(chaiAsPromised);
 
+const MOCHA_TIMEOUT = process.env.TRAVIS ? 240000 : 60000;
+
 describe('Android Bootstrap', function () {
-  this.timeout(60000);
+  this.timeout(MOCHA_TIMEOUT);
+  
   let adb, androidBootstrap;
   let rootDir = path.resolve(__dirname,
                              process.env.NO_PRECOMPILE ? '../..' : '../../..');
