@@ -151,8 +151,13 @@ public class AndroidElementsHash {
     // The selector now points to an entirely different element.
     if (endsWithInstance) {
       Logger.debug("Selector ends with instance.");
+      UiObject instanceObj;
+      if (baseEl != null) {
+        instanceObj = baseEl.getChild(sel);
+      } else {
+        instanceObj = new UiObject(sel);
+      }
       // There's exactly one element when using instance.
-      UiObject instanceObj = baseEl.getChild(sel);
       if (instanceObj != null && instanceObj.exists()) {
         elements.add(addElement(instanceObj));
       }
