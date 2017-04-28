@@ -141,7 +141,7 @@ public class AndroidElementsHash {
     Logger.debug("getElements selector:" + selectorString);
     final ArrayList<AndroidElement> elements = new ArrayList<AndroidElement>();
 
-	final AndroidElement baseEl = this.getElement(key);
+    final AndroidElement baseEl = this.getElement(key);
     // If sel is UiSelector[CLASS=android.widget.Button, INSTANCE=0]
     // then invoking instance with a non-0 argument will corrupt the selector.
     //
