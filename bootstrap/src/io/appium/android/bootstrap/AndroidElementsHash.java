@@ -141,6 +141,7 @@ public class AndroidElementsHash {
     Logger.debug("getElements selector:" + selectorString);
     final ArrayList<AndroidElement> elements = new ArrayList<AndroidElement>();
 
+    final AndroidElement baseEl = this.getElement(key);
     // If sel is UiSelector[CLASS=android.widget.Button, INSTANCE=0]
     // then invoking instance with a non-0 argument will corrupt the selector.
     //
@@ -150,8 +151,13 @@ public class AndroidElementsHash {
     // The selector now points to an entirely different element.
     if (endsWithInstance) {
       Logger.debug("Selector ends with instance.");
+      UiObject instanceObj;
+      if (baseEl != null) {
+        instanceObj = baseEl.getChild(sel);
+      } else {
+        instanceObj = new UiObject(sel);
+      }
       // There's exactly one element when using instance.
-      UiObject instanceObj = new UiObject(sel);
       if (instanceObj != null && instanceObj.exists()) {
         elements.add(addElement(instanceObj));
       }
@@ -159,7 +165,6 @@ public class AndroidElementsHash {
     }
 
     UiObject lastFoundObj;
-    final AndroidElement baseEl = this.getElement(key);
 
     UiSelector tmp;
     int counter = 0;
