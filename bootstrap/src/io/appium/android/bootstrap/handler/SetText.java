@@ -16,6 +16,7 @@
 
 package io.appium.android.bootstrap.handler;
 
+import com.android.uiautomator.core.Configurator;
 import com.android.uiautomator.core.UiDevice;
 import com.android.uiautomator.core.UiObjectNotFoundException;
 import com.android.uiautomator.core.UiSelector;
@@ -84,6 +85,7 @@ public class SetText extends CommandHandler {
       if (!replace) {
         text = currText + text;
       }
+      Configurator.getInstance().setKeyInjectionDelay(100);
       final boolean result = el.setText(text, unicodeKeyboard);
       if (!result) {
         return getErrorResult("el.setText() failed!");
