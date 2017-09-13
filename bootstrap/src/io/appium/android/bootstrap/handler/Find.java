@@ -263,15 +263,15 @@ public class Find extends CommandHandler {
    */
   private List<UiSelector> getSelectors(final Strategy strategy,
       final String text, final boolean many, final String contextId) throws InvalidStrategyException,
-      ElementNotFoundException, UiSelectorSyntaxException,
-      ParserConfigurationException, InvalidSelectorException {
+          ElementNotFoundException, UiSelectorSyntaxException, ParserConfigurationException, InvalidSelectorException {
     final List<UiSelector> selectors = new ArrayList<UiSelector>();
     UiSelector sel = new UiSelector();
 
     switch (strategy) {
       case XPATH:
-        for (final UiSelector selector : getXPathSelectors(text, many, contextId)) {
-          selectors.add(selector);
+        try {
+          selectors.addAll(getXPathSelectors(text, many, contextId));
+        } catch (final ElementNotFoundException ignore) {
         }
         break;
       case CLASS_NAME:
