@@ -52,6 +52,7 @@ class AndroidCommandExecutor {
     map.put("find", new Find());
     map.put("getLocation", new GetLocation());
     map.put("getSize", new GetSize());
+    map.put("getRect", new GetRect());
     map.put("wake", new Wake());
     map.put("pressBack", new PressBack());
     map.put("pressKeyCode", new PressKeyCode());
