@@ -60,7 +60,7 @@ public class GetRect extends CommandHandler {
       }
       return getSuccessResult(res);
     } else {
-      return getErrorResult("Unable to get text without an element.");
+      return getErrorResult("Unable to get rect without an element.");
     }
   }
 }
