@@ -9,3 +9,4 @@ bootstrap/.classpath
 bootstrap/target/
 node_modules
 *.log
+*.iml
