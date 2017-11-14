@@ -93,31 +93,35 @@ public class AndroidElement {
 
   public boolean getBoolAttribute(final String attr)
       throws UiObjectNotFoundException, NoAttributeFoundException {
-    boolean res;
-    if (attr.equals("enabled")) {
-      res = el.isEnabled();
-    } else if (attr.equals("checkable")) {
-      res = el.isCheckable();
-    } else if (attr.equals("checked")) {
-      res = el.isChecked();
-    } else if (attr.equals("clickable")) {
-      res = el.isClickable();
-    } else if (attr.equals("focusable")) {
-      res = el.isFocusable();
-    } else if (attr.equals("focused")) {
-      res = el.isFocused();
-    } else if (attr.equals("longClickable")) {
-      res = el.isLongClickable();
-    } else if (attr.equals("scrollable")) {
-      res = el.isScrollable();
-    } else if (attr.equals("selected")) {
-      res = el.isSelected();
-    } else if (attr.equals("displayed")) {
-      res = el.exists();
-    } else {
-      throw new NoAttributeFoundException(attr);
+    switch (attr) {
+      case "enabled":
+        return el.isEnabled();
+      case "checkable":
+        return el.isCheckable();
+      case "checked":
+        return el.isChecked();
+      case "clickable":
+        return el.isClickable();
+      case "focusable":
+        return el.isFocusable();
+      case "focused":
+        return el.isFocused();
+      case "longClickable":
+        return el.isLongClickable();
+      case "scrollable":
+        return el.isScrollable();
+      case "selected":
+        return el.isSelected();
+      case "displayed":
+        return el.exists();
+      case "password":
+        AccessibilityNodeInfo node = (AccessibilityNodeInfo) invoke(
+                method(el.getClass(), "findAccessibilityNodeInfo", long.class),
+                el, Configurator.getInstance().getWaitForSelectorTimeout());
+        return node.isPassword();
+      default:
+        throw new NoAttributeFoundException(attr);
     }
-    return res;
   }
 
   public Rect getBounds() throws UiObjectNotFoundException {
@@ -151,12 +155,13 @@ public class AndroidElement {
        * Unfortunately UiObject does not implement a getResourceId method.
        * There is currently no way to determine the resource-id of a given
        * element represented by UiObject. Until this support is added to
-       * UiAutomater, we try to match the implementation pattern that is
+       * UiAutomator, we try to match the implementation pattern that is
        * already used by UiObject for getting attributes using reflection.
        * The returned string matches exactly what is displayed in the
        * UiAutomater inspector.
        */
-      AccessibilityNodeInfo node = (AccessibilityNodeInfo) invoke( method(el.getClass(), "findAccessibilityNodeInfo", long.class),
+      AccessibilityNodeInfo node = (AccessibilityNodeInfo) invoke(
+              method(el.getClass(), "findAccessibilityNodeInfo", long.class),
               el, Configurator.getInstance().getWaitForSelectorTimeout());
 
       if (node == null) {
