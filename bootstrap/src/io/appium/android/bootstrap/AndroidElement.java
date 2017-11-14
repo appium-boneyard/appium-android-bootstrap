@@ -115,8 +115,9 @@ public class AndroidElement {
       case "displayed":
         return el.exists();
       case "password":
-        AccessibilityNodeInfo node = (AccessibilityNodeInfo) invoke( method(el.getClass(),
-                "findAccessibilityNodeInfo", long.class), el, Configurator.getInstance().getWaitForSelectorTimeout());
+        AccessibilityNodeInfo node = (AccessibilityNodeInfo) invoke(
+                method(el.getClass(), "findAccessibilityNodeInfo", long.class),
+                el, Configurator.getInstance().getWaitForSelectorTimeout());
         return node.isPassword();
       default:
         throw new NoAttributeFoundException(attr);
@@ -154,12 +155,13 @@ public class AndroidElement {
        * Unfortunately UiObject does not implement a getResourceId method.
        * There is currently no way to determine the resource-id of a given
        * element represented by UiObject. Until this support is added to
-       * UiAutomater, we try to match the implementation pattern that is
+       * UiAutomator, we try to match the implementation pattern that is
        * already used by UiObject for getting attributes using reflection.
        * The returned string matches exactly what is displayed in the
        * UiAutomater inspector.
        */
-      AccessibilityNodeInfo node = (AccessibilityNodeInfo) invoke( method(el.getClass(), "findAccessibilityNodeInfo", long.class),
+      AccessibilityNodeInfo node = (AccessibilityNodeInfo) invoke(
+              method(el.getClass(), "findAccessibilityNodeInfo", long.class),
               el, Configurator.getInstance().getWaitForSelectorTimeout());
 
       if (node == null) {
