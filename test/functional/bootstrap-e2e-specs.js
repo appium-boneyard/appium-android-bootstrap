@@ -15,13 +15,13 @@ const MOCHA_TIMEOUT = process.env.TRAVIS ? 240000 : 60000;
 
 describe('Android Bootstrap', function () {
   this.timeout(MOCHA_TIMEOUT);
-  
+
   let adb, androidBootstrap;
   let rootDir = path.resolve(__dirname,
                              process.env.NO_PRECOMPILE ? '../..' : '../../..');
   const apiDemos = path.resolve(rootDir, 'test', 'fixtures', 'ApiDemos-debug.apk');
   const systemPort = 4724;
-  before(async () => {
+  before(async function () {
     adb = await ADB.createADB();
     const packageName = 'io.appium.android.apis',
           activityName = '.ApiDemos';
@@ -31,21 +31,21 @@ describe('Android Bootstrap', function () {
     androidBootstrap = new AndroidBootstrap(adb, systemPort);
     await androidBootstrap.start('io.appium.android.apis', false);
   });
-  after(async ()=> {
+  after(async function () {
     await androidBootstrap.shutdown();
   });
-  it("sendAction should work", async () => {
+  it("sendAction should work", async function () {
     (await androidBootstrap.sendAction('wake')).should.equal(true);
   });
-  it("sendCommand should work", async () => {
-   (await androidBootstrap.sendCommand(COMMAND_TYPES.ACTION, {action: 'getDataDir'})).should
+  it("sendCommand should work", async function () {
+    (await androidBootstrap.sendCommand(COMMAND_TYPES.ACTION, {action: 'getDataDir'})).should
      .equal("/data");
   });
-  it("sendCommand should correctly throw error", async () => {
-   await androidBootstrap.sendCommand(COMMAND_TYPES.ACTION, {action: 'unknown'}).should
+  it("sendCommand should correctly throw error", async function () {
+    await androidBootstrap.sendCommand(COMMAND_TYPES.ACTION, {action: 'unknown'}).should
      .eventually.be.rejectedWith(errors.UnknownCommandError);
   });
-  it("should cancel onUnexpectedShutdown promise on unexpected uiAutomator shutdown", async () => {
+  it("should cancel onUnexpectedShutdown promise on unexpected uiAutomator shutdown", async function () {
     await androidBootstrap.sendCommand(COMMAND_TYPES.SHUTDOWN);
     await androidBootstrap.onUnexpectedShutdown.should.eventually
       .be.rejectedWith("Error: UiAUtomator shut down unexpectedly");

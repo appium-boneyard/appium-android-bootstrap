@@ -43,7 +43,7 @@ describe('AndroidBootstrap', async function () {
       S.verify();
     });
   }));
-  describe("sendCommand", () => {
+  describe("sendCommand", function () {
     it("should successfully return after receiving data from bootstrap in parts", async function () {
       let conn = new events.EventEmitter();
       conn.write = _.noop;
