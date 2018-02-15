@@ -29,10 +29,10 @@
     "appium-support": "^2.5.0",
     "appium-uiautomator": "^1.1.0",
     "babel-runtime": "=5.8.24",
-    "bluebird": "^2.10.2",
-    "lodash": "^3.10.0",
+    "bluebird": "^2.11.0",
+    "lodash": "^4.17.5",
     "net": "^1.0.2",
-    "source-map-support": "^0.3.2",
+    "source-map-support": "^0.5.3",
     "teen_process": "^1.3.1"
   },
   "scripts": {
@@ -49,12 +49,12 @@
     "lint:fix": "gulp eslint --fix"
   },
   "devDependencies": {
-    "appium-adb": "^2.3.0",
+    "appium-adb": "^6.2.2",
     "appium-gulp-plugins": "^2.2.0",
-    "appium-test-support": "^0.4.0",
+    "appium-test-support": "^0.7.2",
     "babel-eslint": "^7.1.1",
-    "chai": "^3.3.0",
-    "chai-as-promised": "^5.1.0",
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
     "eslint": "^3.10.2",
     "eslint-config-appium": "^2.1.0",
     "eslint-plugin-babel": "^3.3.0",
@@ -62,7 +62,7 @@
     "eslint-plugin-mocha": "^4.7.0",
     "eslint-plugin-promise": "^3.3.1",
     "gulp": "^3.9.0",
-    "mocha": "^3.5.0",
+    "mocha": "^5.0.1",
     "pre-commit": "^1.1.3"
   }
 }
