@@ -48,6 +48,6 @@ describe('Android Bootstrap', function () {
   it("should cancel onUnexpectedShutdown promise on unexpected uiAutomator shutdown", async function () {
     await androidBootstrap.sendCommand(COMMAND_TYPES.SHUTDOWN);
     await androidBootstrap.onUnexpectedShutdown.should.eventually
-      .be.rejectedWith("Error: UiAUtomator shut down unexpectedly");
+      .be.rejectedWith("UiAUtomator shut down unexpectedly");
   });
 });
