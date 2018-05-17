@@ -44,6 +44,7 @@
     "e2e-test": "gulp e2e-test",
     "coverage": "gulp coveralls",
     "build": "gulp transpile",
+    "build:jar": "gulp ant",
     "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
     "lint": "gulp eslint",
     "lint:fix": "gulp eslint --fix"

@@ -80,18 +80,42 @@ An enumeration of the available types of commands, to be used for `sendCommand`.
 
 ### Development
 
+
+#### Building the Bootstrap Jar
+
+This package builds with an older version of the Android tools, using [ant](https://ant.apache.org/).
+
+To build the Java system, make sure [ant](https://ant.apache.org/) is installed.
+
+In order to have both the current Android tools and the ones needed for this package,
+do the following:
+1. Copy your `$ANDROID_HOME` directory (where the Android SDK is installed) to another location.
+1. Download the Android 22 tools
+    * MacOS: http://dl-ssl.google.com/android/repository/tools_r22-macosx.zip
+    * Linux: http://dl-ssl.google.com/android/repository/tools_r22-linux.zip
+    * Windows: http://dl-ssl.google.com/android/repository/tools_r22-windows.zip
+1. Replace the `tools` directory in the copied Android SDK directory with the Android 22
+  `tools` just downloaded
+1. Create/edit `bootstrap/local.properties` file, adding
+    * `sdk.dir=/path/to/copied/android/sdk`
+
+Now you should be able to build the Jar file by running
+```sh
+npm run build:jar
+```
+
 #### Watch
 
-```js
-gulp watch
+```sh
+npm run watch
 ```
 
 #### Test
 
-```js
-gulp once
+```sh
+npm run test
 ```
 
-```js
-gulp e2e-test
+```sh
+npm run e2e-test
 ```
