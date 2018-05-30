@@ -7,6 +7,7 @@
 
 [![Build Status](https://api.travis-ci.org/appium/appium-android-bootstrap.png?branch=master)](https://travis-ci.org/appium/appium-android-bootstrap)
 [![Coverage Status](https://coveralls.io/repos/appium/appium-android-bootstrap/badge.svg?branch=master)](https://coveralls.io/r/appium/appium-android-bootstrap?branch=master)
+[![Greenkeeper badge](https://badges.greenkeeper.io/appium/appium-android-bootstrap.svg)](https://greenkeeper.io/)
 
 JavaScript interface, and Java code, for interacting with Android UI Automator. The system allows _ad hoc_ commands to be sent to the device, which are executed using Android's [UIAutomator](http://developer.android.com/tools/testing-support-library/index.html#UIAutomator) testing framework.
 
