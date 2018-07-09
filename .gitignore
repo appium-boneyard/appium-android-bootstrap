@@ -10,5 +10,5 @@ bootstrap/target/
 node_modules
 *.log
 *.iml
-package-lock.json
+package-lock.json*
 .DS_Store
