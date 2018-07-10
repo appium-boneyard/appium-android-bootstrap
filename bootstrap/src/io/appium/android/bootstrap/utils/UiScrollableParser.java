@@ -334,7 +334,7 @@ public class UiScrollableParser {
     if (type == int.class) {
       return Integer.parseInt(argument);
     }
-    
+
     if (type == double.class) {
       return Double.parseDouble(argument);
     }
@@ -360,7 +360,7 @@ public class UiScrollableParser {
     if (argumentString.isEmpty()) {
       return args;
     }
-    if (argumentString.charAt(0) == ',' || argumentString.charAt(argumentString.length()-1) == ',') {
+    if (argumentString.charAt(0) == ',' || argumentString.charAt(argumentString.length() - 1) == ',') {
       throw new UiSelectorSyntaxException("Missing argument. Trying to parse: " + argumentString);
     }
 
@@ -377,6 +377,7 @@ public class UiScrollableParser {
             args.add(argumentString.substring(prevIndex, index).trim());
             prevIndex = index+1;
           }
+          break;
         case '"':
           inQuotes = !inQuotes;
           break;
