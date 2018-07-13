@@ -1,5 +1,11 @@
 language: android
 dist: precise
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.9
 android:
   components:
     # use the latest revision of Android SDK Tools
@@ -23,8 +29,12 @@ android:
 jdk:
   - oraclejdk8
 env:
-  - _FORCE_LOGS=1 TEST=unit
-  - _FORCE_LOGS=1 TEST=functional
+  global:
+    - CC=gcc-4.9 CXX=g++-4.9
+    - _FORCE_LOGS=1
+  matrix:
+    - TEST=unit
+    - TEST=functional
 install:
   - java -version
   # need to also set up Node environment
