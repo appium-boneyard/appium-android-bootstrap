@@ -19,13 +19,39 @@ The system works by a `com.android.uiautomator.testrunner.UiAutomatorTestCase` p
 The commands are sent through the JavaScript interface.
 
 
+### UiAutomator interface
+
+Appium's UiAutomator interface has two methods `start` and `shutdown`.
+
+`async start (uiAutomatorBinaryPath, className, startDetector, ...extraParams)`
+
+`start` will push uiAutomatorBinary to device and start UiAutomator with className
+and return the SubProcess. `startDetector` and `extraParams` are optional arguments.
+`startDetector` will be used as condition to check against your output stream of test if any. `extraParams` will be passed along as command line arguments when starting the subProcess.
+
+`shutdown` will kill UiAutomator process on the device and also kill the subProcess.
+
+
+```
+import { UiAutomator } from 'appium-android-bootstrap';
+import ADB from 'appium-adb';
+
+let adb = await ADB.createADB();
+let uiAutomator = new UiAutomator(adb);
+
+let startDetector = (s) => { return /Appium Socket Server Ready/.test(s); };
+await uiAutomator.start('foo/bar.jar', 'io.appium.android.bootstrap.Bootstrap',
+                        startDetector, '-e', 'disableAndroidWatchers', true);
+await uiAutomator.shutdown();
+
+```
+
+
 ### Usage
 
 The module provides an `AndroidBootstrap` class, which is instantiated with an instance of [appium-adb](https://github.com/appium/appium-adb), a system port (defaults to `4724`) and an optional web socket. The object then has four `async` methods:
 
 `async start (appPackage, disableAndroidWatchers)`
-
-Uses Appium's [UI Automator](https://github.com/appium/appium-uiautomator) interface to install the test case, and sets up socket communication.
 
 - `appPackage` - The package name for the application under test (e.g., 'com.example.android.apis').
 - `disableAndroidWatchers` - Whether or not to watch Android events. Defaults to `false`.
